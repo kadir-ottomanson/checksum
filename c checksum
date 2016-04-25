@@ -1,0 +1,107 @@
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+class checksum{
+      public:
+             int size,hex[100],chc[4],elde;
+             void dectohex(int dec[]){
+                 int j=0,i;
+                     for(i=0;i<2*size;i++){
+                                       if(dec[j]>15){
+                                                   hex[i]=dec[j]%16;
+                                                   dec[j]=dec[j]/16;
+                                                   if(dec[j]!=0){
+                                                               hex[i+1]=dec[j];
+                                                               i++;  }
+                                                               j++;  }  
+                                       else{
+                                            hex[i]=dec[i];j++;}  
+                                           }    tek();}
+                                           
+            
+            void tek(){                   
+                         if(size%2==1){
+                                         for(int i=(2*size)-2;i<=(2*size)-1;i++){
+                                        hex[i+2]=hex[i];
+                                        hex[i]=0;}
+                                         }
+                          if(size%2==0)
+                                       size=(size/2)-1;
+                          else
+                                       size=size/2;
+                                       chckod();}
+                    
+            void chckod(){
+                       int k,j,kod[]={2,3,0,1},tut=0;
+                        for(k=0;k<4;k++) {                  
+                        chc[k]=0;
+                                      for(j=0;j<=size;j++)
+                                      chc[k]+=hex[(4*j)+kod[k]];
+                                     tut=chc[k]+elde;
+                                     chc[k]=(chc[k]+elde)%16;
+                                     elde=tut/16;
+                                     }
+                                }
+                                     
+               void tmleme(int z[],int h){    
+                           int i;
+                                   for(i=0;i<3;i++)
+                                             z[i]=15-z[i];
+                           z[3]=15-(h+z[3]);
+           }        
+      }chc1,chc2;
+
+int main(int argc, char *argv[]){
+    
+    char ad1[50],ad2[50];
+    int a[50],b[50],k[4],l[4],el=0,i,t=0,kal=0,x=0,y=0;
+        cout<<"1.Metin : ";
+        gets(ad1);
+           x=strlen(ad1);
+                for(int i=0;i<x;i++){
+                        a[i]=ad1[i];
+                    if(a[i]<0)
+                        a[i]=-1*a[i];
+                                }
+           chc1.size=x;
+           chc1.dectohex(a);
+   
+                            for(int i=0;i<4;i++)
+                                     k[i]=chc1.chc[i];
+                            
+            chc1.tmleme(k,chc1.elde);
+
+
+
+            cout<<"2.Metin : ";
+            gets(ad2);
+            y=strlen(ad2);
+                          for(int i=0;i<x;i++){
+                                  b[i]=ad2[i];
+                                   if(b[i]<0)
+                                  b[i]=-1*b[i];}
+            
+            chc2.size=y;
+            chc2.dectohex(b);
+            el=chc2.elde;
+                          for(int i=0;i<4;i++)
+                          l[i]=chc2.chc[i]; 
+
+        
+                          for(i=0;i<4;i++){
+                                            t=k[i]+l[i];
+                                            k[i]=(t+kal)%16;
+                                            kal=t/16;
+                                                   }
+            chc2.tmleme(k,(el+kal));
+          
+
+                                  if(k[0]==0 && k[1]==0 && k[2]==0 && k[3]==0)
+                                             cout<<"Metinler ayni..."<<endl;
+                                  else
+                                              cout<<"Metinler ayni degil"<<endl;
+ 
+    system("PAUSE");
+    return 0;
+}
